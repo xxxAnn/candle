@@ -6,7 +6,7 @@ ex = re.compile("..version.. = \'(.*?)\'")
 with open("README.md", "r") as f:
     long_description = f.read()
 
-with open("PyBlox2/__init__.py", "r") as f:
+with open("Kyandle/__init__.py", "r") as f:
     version = ex.findall(f.read())[0]
 
 requirements = []
