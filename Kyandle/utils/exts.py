@@ -4,8 +4,6 @@ import logging
 from .errors import InvalidKyandle
 
 line_finder = re.compile(r"(\<|\^)(.*)(\>|\$)")
-# nest_finder = re.compile(r"((\<|\|)[^\|]+(\>|\|))")
-values_finder = re.compile(r"(\'.*?\')")
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +90,7 @@ class Parser:
         for native in super_parsed[2]:
             to_list.append(self.__to_list(self.__super_parsing(native)))
         for native in super_parsed[1]:
-            to_list.append(self.__to_list(self.__super_parsing(native)))
+            to_list.append(self.__to_dict(self.__super_parsing(native)))
 
         for nonnative in super_parsed[0]:
             to_list.append(nonnative)
@@ -101,6 +99,7 @@ class Parser:
 
     def __super_parsing(self, string):
         string = string.replace("'^", "^").replace("$'", "$").replace("'<", "<").replace(">'", ">")
+        print(string)
         data = []
         lits = []
         lists = []
