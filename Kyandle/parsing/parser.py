@@ -8,6 +8,8 @@ parser = Parser()
 logger = logging.getLogger(__name__)
 
 def parse(text):
-    structs = parser.parse(text)
+    structs = parser.parse(text)[0]
 
-    logger.info("Got structs {}".format(str(structs)))
+    logger.debug("Got struct {}".format(str(structs)))
+    
+    return structs
