@@ -7,10 +7,7 @@ logging.basicConfig(
     format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s.%(funcName)s: %(message)s'
     )
 
-x = {"God": "rich",
-    "Satan": {"Sometimes": "broke", "Sometimes": "rich"},
-    "Me": [0, 0, 0 ,0]
-    }
+x = {"3": [2, (5, {3: "8"})]}
 with open('tests/kyandle_file.kya', 'w') as f:
     f.write(Kyandle.serialize(x))
 
