@@ -99,7 +99,6 @@ class Parser:
 
     def __super_parsing(self, string):
         string = string.replace("'^", "^").replace("$'", "$").replace("'<", "<").replace(">'", ">")
-        print(string)
         data = []
         lits = []
         lists = []
