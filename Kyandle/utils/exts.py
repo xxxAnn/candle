@@ -61,18 +61,7 @@ class Parser:
 
     def __parse_list(self, struct):
         values = self.__super_parsing(struct[1])
-
-        native = []
-        
-        for value in values[0]:
-            native.append(value)
-
-        for dic in values[1]:
-            native.append(self.__to_dict(self.__super_parsing(dic)))
-        for lis in values[2]:
-            native.append(self.__to_list(self.__super_parsing(lis)))
-
-        return native
+        return self.__to_list(values)
     
     def __parse_dict(self, struct):
         values = self.__super_parsing(struct[1])
@@ -117,19 +106,19 @@ class Parser:
         lists = []
         dicts = []
         values = []
-        opened_lit = -27
+        opened_lit = -1
         opened_lists = []
         opened_dicts = []
 
         for i in range(len(string)):
 
             if string[i] == "'" and len(opened_lists) == 0 and len(opened_dicts) == 0:
-                if opened_lit != -27:
+                if opened_lit != -1:
                     type_identifier = string[opened_lit+1]
                     from_index = (opened_lit+2)
                     lits.append((from_index, i, type_identifier))
                     values.append((self.__typer(type_identifier, string[lits[-1][0]:lits[-1][1]]), 'native'))
-                    opened_lit = -27
+                    opened_lit = -1
                 else:
                     opened_lit = i
 
@@ -157,7 +146,7 @@ class Parser:
                 else:
                     raise InvalidKyandle
             
-        if len(opened_dicts) > 0 or len(opened_lists) > 0 or opened_lit != -27:
+        if len(opened_dicts) > 0 or len(opened_lists) > 0 or opened_lit != -1:
             for rg in lits:
                 print(string[rg[0]:rg[1]])
             raise InvalidKyandle
