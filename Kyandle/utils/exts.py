@@ -65,9 +65,6 @@ class Parser:
         native = []
         
         for value in values[0]:
-            if isinstance(value, str):
-                if value.isnumeric():
-                    value = int(value)
             native.append(value)
 
         for dic in values[1]:
@@ -95,13 +92,6 @@ class Parser:
         
         i = 1
         while i<len(new_parsed):
-            if isinstance(new_parsed[i-1], str):
-                if new_parsed[i-1].isnumeric():
-                    new_parsed[i-1] = int(new_parsed[i-1])
-            if isinstance(new_parsed[i], str):
-                if new_parsed[i].isnumeric():
-                    new_parsed[i] = int(new_parsed[i])
-
             dic[new_parsed[i-1]] = new_parsed[i]
 
             i += 2
@@ -116,15 +106,12 @@ class Parser:
             to_list.append(self.__to_list(self.__super_parsing(native)))
 
         for nonnative in super_parsed[0]:
-            if nonnative.isnumeric():
-                nonnative = int(nonnative)
             to_list.append(nonnative)
 
         return to_list
 
     def __super_parsing(self, string):
         string = string.replace("'^", "^").replace("$'", "$").replace("'<", "<").replace(">'", ">")
-        print('-----')
         data = []
         lits = []
         lists = []
@@ -138,9 +125,10 @@ class Parser:
 
             if string[i] == "'" and len(opened_lists) == 0 and len(opened_dicts) == 0:
                 if opened_lit != -27:
-                    from_index = (opened_lit+1)
-                    lits.append((from_index, i))
-                    values.append((string[lits[-1][0]:lits[-1][1]], 'native'))
+                    type_identifier = string[opened_lit+1]
+                    from_index = (opened_lit+2)
+                    lits.append((from_index, i, type_identifier))
+                    values.append((self.__typer(type_identifier, string[lits[-1][0]:lits[-1][1]]), 'native'))
                     opened_lit = -27
                 else:
                     opened_lit = i
@@ -163,7 +151,7 @@ class Parser:
             elif string[i] == ">":
                 if len(opened_dicts) > 0:
                     from_index = (opened_dicts.pop(-1)+1)
-                    if len(opened_dicts) == 0 and len(opened_dicts) == 0:
+                    if len(opened_dicts) == 0 and len(opened_lists) == 0:
                         dicts.append((from_index, i))
                         values.append((string[dicts[-1][0]:dicts[-1][1]], 'dict'))
                 else:
@@ -179,7 +167,7 @@ class Parser:
         true_lits = []
 
         for rg in lits:
-            true_lits.append(string[rg[0]:rg[1]])
+            true_lits.append(self.__typer(rg[2], string[rg[0]:rg[1]]))
 
         for rg in dicts:
             true_dicts.append(string[rg[0]:rg[1]])
@@ -188,9 +176,16 @@ class Parser:
             true_lists.append(string[rg[0]:rg[1]])
 
         tup = (true_lits, true_dicts, true_lists, values)         
-        for v in values:
-            print(type(v[0]))
-            print(v)
-            print('\n\n')
-        print('-----')
+
         return tup
+
+    def __typer(self, type_identifier, obj):
+        if type_identifier == "s":
+            return str(obj)
+        elif type_identifier == "f":
+            return float(obj)
+        elif type_identifier == "i":
+            return int(obj)
+        elif type_identifier == "b":
+            return bool(obj)
+        
