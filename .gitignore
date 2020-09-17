@@ -1,3 +1,6 @@
 ﻿/.vs
 *.pyc
 *.kya
+/Kyandle.egg-info
+/dist
+/build/lib/Kyandle
