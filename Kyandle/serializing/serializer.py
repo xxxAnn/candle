@@ -1,11 +1,14 @@
 from ..utils.errors import InvalidKyandle
 
 def serialize(struct):
+    if isinstance(struct, tuple):
+        struct = list(struct)
+
     if isinstance(struct, list):
         serialized = str("^")
 
         for instance in struct:
-            if isinstance(instance, dict) or isinstance(instance, list):
+            if isinstance(instance, dict) or isinstance(instance, list) or isinstance(instance, tuple):
                 instance = serialize(instance)
             else:
                 instance = __indicate_type(instance)
@@ -22,11 +25,11 @@ def serialize(struct):
         serialized = "<"
 
         for k, v in struct.items():
-            if isinstance(k, dict) or isinstance(k, list):
+            if isinstance(k, dict) or isinstance(k, list) or isinstance(k, tuple):
                 k = serialize(k)
             else:
                 k = __indicate_type(k)
-            if isinstance(v, dict) or isinstance(v, list):
+            if isinstance(v, dict) or isinstance(v, list) or isinstance(v, tuple):
                 v = serialize(v)
             else:
                 v = __indicate_type(v)
