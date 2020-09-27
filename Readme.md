@@ -1,8 +1,5 @@
 # Parser
-## License
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Kyando2/candle/blob/master/LICENSE)
-<br>
-## Version
 [![Version](https://img.shields.io/pypi/v/Kyandle.svg)](https://github.com/Kyando2/candle/)<br>
 # Syntax
 ## Types
