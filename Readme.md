@@ -1,6 +1,6 @@
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Kyando2/candle/blob/master/LICENSE)
-[![Version](https://img.shields.io/pypi/v/Kyandle.svg)](https://github.com/Kyando2/candle/)<br>
 # Syntax
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Kyando2/candle/blob/master/LICENSE)
+[![Version](https://img.shields.io/pypi/v/Kyandle.svg)](https://pypi.org/project/Kyandle/)<br>
 ## Types
 There are three types: <br>```dict (key = value, key = value ...), ```<br>```list (value, value, value ...) and ```<br>```native (native classes or objects to the language of the interpreter)```
 ### Dict
